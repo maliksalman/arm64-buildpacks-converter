@@ -1,0 +1,23 @@
+config:
+
+  image-prefix: 'docker.io/maliksalman'
+
+  artifacts-skipped:
+    - '(.*)/maven-mvnd-(.*)-linux-amd64.zip'
+
+  artifacts-replacement:
+    - pattern: '(.*)/(watchexec-.*)-(x86_64-unknown-linux-musl\.tar\.xz)'
+      replacement: '$1/$2-aarch64-unknown-linux-gnu.tar.xz'
+    - pattern: '(.*/bellsoft-.*)-(linux-amd64)\.(tar\.gz)'
+      replacement: '$1-linux-aarch64.$3'
+    - pattern: '(.*)(amd64)(.*)'
+      replacement: '$1arm64$3'
+
+  artifact-sha-cache-dir: /Users/samalik/Workspaces/misc/buildpack-manifest-fixer/cache
+
+  local-images-replacement:
+    pattern: '(.*)(paketo-buildpacks)/(.*)([:@])(.*)$'
+    replacement: '$2-$3-arm64:$5'
+    replacement-prefix: "docker://${config.image-prefix}/"
+
+  lifecycle-artifact-template: 'https://github.com/buildpacks/lifecycle/releases/download/v{{VERSION}}/lifecycle-v{{VERSION}}+linux.arm64.tgz'

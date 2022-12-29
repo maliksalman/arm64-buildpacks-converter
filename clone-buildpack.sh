@@ -24,11 +24,14 @@ fi
 BP_DIR="$BP_BASE_DIR/$BP_ID:$BP_VER"
 if [ -d $BP_DIR ]; then
     echo ">>> Skipping cloning $BP_ID:$BP_VER <<<"
-    # TODO: might want to revert all local GIT changes
+    pushd "$BP_DIR" >/dev/null
+	git restore .
+	git clean -fd
+	popd >/dev/null
 else
     echo ">>> Cloning $BP_ID:$BP_VER into $BP_DIR <<<"
     git clone "https://github.com/$BP_ID" "$BP_DIR"
     pushd "$BP_DIR" >/dev/null
     git -c "advice.detachedHead=false" checkout "v$BP_VER"
-    popd
+    popd >/dev/null
 fi
