@@ -29,15 +29,16 @@ jobs:
               echo "status=convert" >> $GITHUB_OUTPUT
           fi
 
-  start-manifest-fixer:
+  convert:
     runs-on: [self-hosted, Linux, ARM64]
     needs: [check]
     if: needs.check.outputs.status == 'convert'
-    env:
-      CACHE_DIR: ".work/cache"
     steps:
-      - id: start
+      - id: checkout
+        uses: actions/checkout@v3
+      - id: start-fixer
         run: |
+          CACHE_DIR=".work/cache"
           mkdir -p $CACHE_DIR
           echo "Cache: $PWD/$CACHE_DIR"
           docker rm -f buildpacks-manifest-fixer 2> /dev/null
@@ -49,14 +50,6 @@ jobs:
               --user $(id -u):$(id -g) \
               -p 58585:8080 \
               maliksalman/buildpacks-manifest-fixer:1.0.0-arm64
-
-  convert:
-    runs-on: [self-hosted, Linux, ARM64]
-    needs: [check, start-manifest-fixer]
-    if: needs.check.outputs.status == 'convert'
-    steps:
-      - id: checkout
-        uses: actions/checkout@v3
       - id: clone-buildpacks
         run: |
           for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
@@ -78,7 +71,10 @@ jobs:
             BP_VER=$(echo "$BP" | jq -r ".version")
             ./convert-buildpack.sh "$BP_ID" "$BP_VER" .work/buildpacks true $OCI_IMAGE_PREFIX
           done
-
+      - id: stop-fixer
+        run: |
+          docker rm -f buildpacks-manifest-fixer 2> /dev/null
+      
   version:
     runs-on: [self-hosted, Linux, ARM64]
     needs: [check]
