@@ -206,8 +206,8 @@ jobs:
           ./make-manifest.sh "$LATEST_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
       - name: publish-manifests
         run: |
-          docker push $VERSIONED_MANIFEST
-          docker push $LATEST_MANIFEST
+          docker manifest push $VERSIONED_MANIFEST
+          docker manifest push $LATEST_MANIFEST
 
   git-push:
     runs-on: [self-hosted, Linux, ARM64]

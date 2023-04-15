@@ -12,3 +12,5 @@ fi
 docker manifest create $MANIFEST_IMAGE \
     $CONV_BUILDER \
     $ORIG_BUILDER
+
+docker manifest push $MANIFEST_IMAGE
