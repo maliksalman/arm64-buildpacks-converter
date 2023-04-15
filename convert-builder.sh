@@ -14,7 +14,7 @@ if [ -z $BUILDER ] || [ -z $OCI_IMAGE_PREFIX ] || [ -z $VERSION ] ; then
 fi
 
 # make the directory for keeping builder info
-BUILDER_DIR=".work/builders/$BUILDER"
+BUILDER_DIR="builders/$BUILDER"
 mkdir -p $BUILDER_DIR
 
 # create cache-dir
