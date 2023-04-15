@@ -140,6 +140,6 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - id: publish
-        run:|
+        run: |
           echo docker push $STACK_RUN_IMAGE
           echo docker push $STACK_BUILD_IMAGE
