@@ -196,8 +196,9 @@ jobs:
           echo "MANIFEST_IMAGE=$MANIFEST_IMAGE" >> $GITHUB_ENV
       - id: reset-manifest
         run: |
-          MANIFEST_EXISTS=$(docker manifest inspect $MANIFEST_IMAGE >/dev/null 2>/dev/null; echo $?)
-          if [ $MANIFEST_EXISTS -eq 0 ]; then
+          MANIFEST_EXISTS=true
+          docker manifest inspect $MANIFEST_IMAGE >/dev/null 2>/dev/null || MANIFEST_EXISTS=false
+          if [ "$MANIFEST_EXISTS" == "true" ]; then
               docker manifest rm $MANIFEST_IMAGE
           fi
       - id: make-manifest
