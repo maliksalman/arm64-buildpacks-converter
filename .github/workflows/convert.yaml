@@ -33,10 +33,16 @@ jobs:
     runs-on: [self-hosted, Linux, ARM64]
     needs: [check]
     if: needs.check.outputs.status == 'convert'
+    env:
+      CACHE_DIR: ".work/cache"
     steps:
+      - id: cache
+        uses: actions/cache@v3
+        with:
+          path: ${{ env.CACHE_DIR }}
+          key: ${{ runner.os }}-cache
       - id: start-fixer
         run: |
-          CACHE_DIR=".work/cache"
           mkdir -p $CACHE_DIR
           echo "Cache: $PWD/$CACHE_DIR"
           docker rm -f buildpacks-manifest-fixer 2> /dev/null
@@ -119,18 +125,18 @@ jobs:
           echo "STACK_BUILD_IMAGE=$STACK_BUILD_IMAGE" >> $GITHUB_OUTPUT
 
           docker build . \
-              -t  $STACK_RUN_IMAGE \
+              -t $STACK_BUILD_IMAGE \
               --build-arg STACK_ID="$STACK_ID" \
-              --target run
+              --target build
       - id: stack-run
         run: |
           STACK_RUN_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-run:arm64-$VERSION"
           echo "STACK_RUN_IMAGE=$STACK_RUN_IMAGE" >> $GITHUB_OUTPUT
 
           docker build . \
-              -t $STACK_BUILD_IMAGE \
+              -t  $STACK_RUN_IMAGE \
               --build-arg STACK_ID="$STACK_ID" \
-              --target build
+              --target run
 
   builder:
     runs-on: [self-hosted, Linux, ARM64]
