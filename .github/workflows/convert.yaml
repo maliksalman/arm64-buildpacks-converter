@@ -173,6 +173,8 @@ jobs:
     runs-on: [self-hosted, Linux, ARM64]
     needs: [check, version, stack, builder]
     if: needs.check.outputs.status == 'convert'
+    outputs:
+      VERSIONED_MANIFEST: ${{ steps.make-versioned-manifest.outputs.VERSIONED_MANIFEST }}
     env:
       VERSION: ${{ needs.version.outputs.VERSION }}
       BUILDER_IMAGE: ${{ needs.builder.outputs.BUILDER_IMAGE }}
@@ -190,22 +192,31 @@ jobs:
           echo docker push $STACK_RUN_IMAGE
           echo docker push $STACK_BUILD_IMAGE
           echo docker push $BUILDER_IMAGE
-      - name: manifest-name
+      - name: make-versioned-manifest
         run: |
-          MANIFEST_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
-          echo "MANIFEST_IMAGE=$MANIFEST_IMAGE" >> $GITHUB_ENV
-      - name: reset-manifest
+          VERSIONED_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
+          echo "VERSIONED_MANIFEST=$VERSIONED_MANIFEST" >> $GITHUB_ENV
+          echo "VERSIONED_MANIFEST=$VERSIONED_MANIFEST" >> $GITHUB_OUTPUT
+          echo ./make-manifest.sh "$VERSIONED_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
+      - name: make-latest-manifest
         run: |
-          MANIFEST_EXISTS=$(docker manifest inspect $MANIFEST_IMAGE >/dev/null 2>/dev/null && echo true || echo false)
-          if [[ "$MANIFEST_EXISTS" == "true" ]]; then
-              docker manifest rm $MANIFEST_IMAGE
-          fi
-      - name: make-manifest
+          LATEST_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:latest"
+          echo "LATEST_MANIFEST=$LATEST_MANIFEST" >> $GITHUB_ENV
+          echo ./make-manifest.sh "$LATEST_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
+      - name: publish-manifests
         run: |
-          docker pull $BUILDER
-          docker manifest create $MANIFEST_IMAGE \
-              $BUILDER_IMAGE \
-              $BUILDER
-      - name: publish-manifest
-        run: |
-          echo docker push $MANIFEST_IMAGE
+          echo docker push $VERSIONED_MANIFEST
+          echo docker push $LATEST_MANIFEST
+
+  git-push:
+    runs-on: [self-hosted, Linux, ARM64]
+    needs: [check, publish]
+    if: needs.check.outputs.status == 'convert'
+    env:
+      VERSIONED_MANIFEST: ${{ needs.publish.outputs.VERSIONED_MANIFEST }}
+    steps:
+      - name: push
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: "AUTO: published [${{ env.VERSIONED_MANIFEST }}]"
