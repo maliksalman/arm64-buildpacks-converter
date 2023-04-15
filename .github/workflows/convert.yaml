@@ -19,7 +19,7 @@ jobs:
           pack builder inspect $BUILDER -o json | jq .remote_info > "$BUILDER_DIR/info.json"
       - id: check
         run: |
-          CHANGED=$(git diff --exit-code --output=/dev/null "$BUILDER_DIR/info.json")
+          CHANGED=$(git diff --exit-code --output=/dev/null "$BUILDER_DIR/info.json"; echo $?)
           if [[ $CHANGED -eq 0 ]]; then
               echo "Nothing changed since last conversion"
               echo "status=skip" >> $GITHUB_OUTPUT
