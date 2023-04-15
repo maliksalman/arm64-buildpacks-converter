@@ -17,7 +17,7 @@ jobs:
       - id: get-manifest
         run: |
           mkdir -p $BUILDER_DIR
-          pack builder inspect $BUILDER -o json | jq .remote_info > "$BUILDER_DIR/info.json"
+          pack builder inspect $BUILDER -o json | jq '.remote_info | del(..|nulls)' > "$BUILDER_DIR/info.json"
       - id: check
         run: |
           CHANGED=$(git diff --exit-code --output=/dev/null "$BUILDER_DIR/info.json"; echo $?)
@@ -189,28 +189,29 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: publish-images
         run: |
-          echo docker push $STACK_RUN_IMAGE
-          echo docker push $STACK_BUILD_IMAGE
-          echo docker push $BUILDER_IMAGE
+          docker push $STACK_RUN_IMAGE
+          docker push $STACK_BUILD_IMAGE
+          docker push $BUILDER_IMAGE
       - name: make-versioned-manifest
+        id: make-versioned-manifest
         run: |
           VERSIONED_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
           echo "VERSIONED_MANIFEST=$VERSIONED_MANIFEST" >> $GITHUB_ENV
           echo "VERSIONED_MANIFEST=$VERSIONED_MANIFEST" >> $GITHUB_OUTPUT
-          echo ./make-manifest.sh "$VERSIONED_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
+          ./make-manifest.sh "$VERSIONED_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
       - name: make-latest-manifest
         run: |
           LATEST_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:latest"
           echo "LATEST_MANIFEST=$LATEST_MANIFEST" >> $GITHUB_ENV
-          echo ./make-manifest.sh "$LATEST_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
+          ./make-manifest.sh "$LATEST_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
       - name: publish-manifests
         run: |
-          echo docker push $VERSIONED_MANIFEST
-          echo docker push $LATEST_MANIFEST
+          docker push $VERSIONED_MANIFEST
+          docker push $LATEST_MANIFEST
 
   git-push:
     runs-on: [self-hosted, Linux, ARM64]
-    needs: [check, publish]
+    needs: [check, version, publish]
     if: needs.check.outputs.status == 'convert'
     env:
       VERSIONED_MANIFEST: ${{ needs.publish.outputs.VERSIONED_MANIFEST }}
