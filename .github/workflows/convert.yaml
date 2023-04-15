@@ -48,12 +48,13 @@ jobs:
       - id: start-manifest-fixer
         run: |
           mkdir -p $CACHE_DIR
+          echo "Cache: $PWD/$CACHE_DIR"
           docker rm -f buildpacks-manifest-fixer 2> /dev/null
           docker run -d \
               --name buildpacks-manifest-fixer \
               -e CONFIG_ARTIFACTSHACACHEDIR=/cache \
               -e CONFIG_IMAGEPREFIX=$OCI_IMAGE_PREFIX \
-              -v $PWD/$CACHE_DIR:/cache \
+              -v $CACHE_DIR:/cache \
               -p 58585:8080 \
               maliksalman/buildpacks-manifest-fixer:1.0.0-arm64
       - id: convert-simple-buildpacks
