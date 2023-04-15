@@ -212,12 +212,13 @@ jobs:
     needs: [check, version, publish]
     if: needs.check.outputs.status == 'convert'
     env:
-      VERSIONED_MANIFEST: ${{ needs.publish.outputs.VERSIONED_MANIFEST }}
+      COMMIT_MESSAGE: "auto-published: [${{ needs.publish.outputs.VERSIONED_MANIFEST }}]"
     steps:
       - name: push
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git commit -m "auto-published: [$VERSIONED_MANIFEST]"
-          git push
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          message: ${{ env.COMMIT_MESSAGE }}
+          author_email: github-actions@github.com
+          author_name: github-actions
+
