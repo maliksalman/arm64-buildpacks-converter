@@ -1,17 +1,97 @@
 name: Convert Tiny Builder
 on: [ workflow_dispatch ]
+env:
+  BUILDER: "paketobuildpacks/builder:tiny"
+  BUILDER_DIR: "builders/paketobuildpacks/builder:tiny"
 
 jobs:
-  test:
-    name: "convert"
+
+  check:
     runs-on: [self-hosted, Linux, ARM64]
+    outputs:
+      status: ${{ steps.check.outputs.status }}
     steps:
-      - name: Checkout
+      - id: checkout
         uses: actions/checkout@v3
-      - name: Debug info
+      - id: get-manifest
         run: |
-          pwd
-          find .
-          docker --version
-          pack --version
-          jq --version
+          mkdir -p $BUILDER_DIR
+          pack builder inspect $BUILDER -o json | jq .remote_info > "$BUILDER_DIR/info.json"
+      - id: check
+        run: |
+          CHANGED=$(git diff --exit-code --output=/dev/null "$BUILDER_DIR/info.json")
+          if [[ $CHANGED -eq 0 ]]; then
+              echo "Nothing changed since last conversion"
+              echo "status=skip" >> $GITHUB_OUTPUT
+          else
+              echo "Something changed, we will perform the conversion"
+              echo "status=skip" >> $GITHUB_OUTPUT
+          fi
+
+  convert:
+    runs-on: [self-hosted, Linux, ARM64]
+    needs: check
+    if: needs.check.outputs.status == 'convert'
+    env:
+      CACHE_DIR: ".work/cache"
+      OCI_IMAGE_PREFIX: "docker.io/maliksalman"
+    steps:
+      - id: checkout
+        uses: actions/checkout@v3
+      - id: clone-dependencies
+        run: |
+          for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
+            BP_ID=$(echo "$BP" | jq -r ".id")
+            BP_VER=$(echo "$BP" | jq -r ".version")
+            ./clone-buildpack.sh "$BP_ID" "$BP_VER" ".work/buildpacks"
+          done
+      - id: start-manifest-fixer
+        run: |
+          mkdir -p $CACHE_DIR
+          docker rm -f buildpacks-manifest-fixer 2> /dev/null
+          docker run -d \
+              --name buildpacks-manifest-fixer \
+              -e CONFIG_ARTIFACTSHACACHEDIR=/cache \
+              -e CONFIG_IMAGEPREFIX=$OCI_IMAGE_PREFIX \
+              -v $PWD/$CACHE_DIR:/cache \
+              -p 58585:8080 \
+              maliksalman/buildpacks-manifest-fixer:1.0.0-arm64
+      - id: convert-simple-buildpacks
+        run: |
+          for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
+            BP_ID=$(echo "$BP" | jq -r ".id")
+            BP_VER=$(echo "$BP" | jq -r ".version")
+            ./convert-buildpack.sh "$BP_ID" "$BP_VER" .work/buildpacks false $OCI_IMAGE_PREFIX
+          done
+      - id: convert-composite-buildpacks
+        run: |
+          for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
+            BP_ID=$(echo "$BP" | jq -r ".id")
+            BP_VER=$(echo "$BP" | jq -r ".version")
+            ./convert-buildpack.sh "$BP_ID" "$BP_VER" .work/buildpacks true $OCI_IMAGE_PREFIX
+          done
+      - id: build-stack
+        run: |
+          # Figure out stack-id
+          export STACK_ID="$(jq '.stack.id' $BUILDER_DIR/info.json -r)"
+          export STACK_IMAGES_PREFIX=$(echo $BUILDER | sed 's|\(.*\)/\(.*\):\(.*\)|\1-\2-\3|')
+
+          # Create stack run image
+          STACK_RUN_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-run:arm64-$VERSION"
+          docker build . \
+              -t  $STACK_RUN_IMAGE \
+              --build-arg STACK_ID="$STACK_ID" \
+              --target run
+
+          # Create stack build image
+          STACK_BUILD_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-build:arm64-$VERSION"
+          docker build . \
+              -t $STACK_BUILD_IMAGE \
+              --build-arg STACK_ID="$STACK_ID" \
+              --target build
+          
+          # make these variables available for next steps
+          echo "STACK_ID=$STACK_ID" >> $GITHUB_ENV
+          echo "STACK_RUN_IMAGE=$STACK_RUN_IMAGE" >> $GITHUB_ENV
+          echo "STACK_BUILD_IMAGE=$STACK_BUILD_IMAGE" >> $GITHUB_ENV
+

@@ -35,6 +35,12 @@ docker run -d \
 pack builder inspect $BUILDER \
     -o json | jq .remote_info > "$BUILDER_DIR/info.json"
 
+CHANGED=$(git diff --exit-code --output=/dev/null "$BUILDER_DIR/info.json")
+if [[ $CHANGED -eq 0 ]]; then
+    echo "Nothing changed since last conversion"
+    exit
+fi
+
 # Pass #1: clone all buildpacks mentioned in the manifest
 for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
     BP_ID=$(echo "$BP" | jq -r ".id")
