@@ -1,0 +1,17 @@
+name: Convert Tiny Builder
+on: [ workflow_dispatch ]
+
+jobs:
+  test:
+    name: "convert"
+    runs-on: [self-hosted, Linux, ARM64]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Debug info
+        run: |
+          pwd
+          find .
+          docker --version
+          pack --version
+          jq --version
