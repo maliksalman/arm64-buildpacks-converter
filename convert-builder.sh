@@ -8,7 +8,7 @@ VERSION=$3
 if [ -z $BUILDER ] || [ -z $OCI_IMAGE_PREFIX ] || [ -z $VERSION ] ; then 
     echo
     echo "Usage: $0 <src-builder-image> <oci-image-prefix> <new-builder-version>"
-    echo "Example: $0 paketobuildpacks/builder:base docker.io/maliksalman focal-1.0.0"
+    echo "Example: $0 paketobuildpacks/builder:tiny docker.io/maliksalman focal-1.0.0"
     echo
     exit 1
 fi
