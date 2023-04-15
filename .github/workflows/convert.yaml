@@ -34,8 +34,6 @@ jobs:
     needs: [check]
     if: needs.check.outputs.status == 'convert'
     steps:
-      - id: checkout
-        uses: actions/checkout@v3
       - id: start-fixer
         run: |
           CACHE_DIR=".work/cache"
@@ -71,9 +69,6 @@ jobs:
             BP_VER=$(echo "$BP" | jq -r ".version")
             ./convert-buildpack.sh "$BP_ID" "$BP_VER" .work/buildpacks true $OCI_IMAGE_PREFIX
           done
-      - id: stop-fixer
-        run: |
-          docker rm -f buildpacks-manifest-fixer 2> /dev/null
       
   version:
     runs-on: [self-hosted, Linux, ARM64]
@@ -81,9 +76,6 @@ jobs:
     if: needs.check.outputs.status == 'convert'
     outputs:
       VERSION: ${{ steps.bump-semver.outputs.new_version }}
-      STACK_ID: ${{ steps.idnames.outputs.STACK_ID }}
-      STACK_RUN_IMAGE: ${{ steps.idnames.outputs.STACK_RUN_IMAGE }}
-      STACK_BUILD_IMAGE: ${{ steps.idnames.outputs.STACK_BUILD_IMAGE }}
     steps:
       - id: existing-version
         run: |
@@ -94,48 +86,116 @@ jobs:
         with:
           current_version: ${{ env.EXISTING_VER }}
           level: minor
-      - id: idnames
+      - id: update-version
         env:
           VERSION: ${{ steps.bump-semver.outputs.new_version }}
         run: |
           echo "$VERSION" > $BUILDER_DIR/version
-
-          STACK_ID="$(jq '.stack.id' $BUILDER_DIR/info.json -r)"
-          STACK_IMAGES_PREFIX=$(echo $BUILDER | sed 's|\(.*\)/\(.*\):\(.*\)|\1-\2-\3|')
-          STACK_RUN_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-run:arm64-$VERSION"
-          STACK_BUILD_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-build:arm64-$VERSION"
-
-          echo "STACK_ID=$STACK_ID" >> $GITHUB_OUTPUT
-          echo "STACK_RUN_IMAGE=$STACK_RUN_IMAGE" >> $GITHUB_OUTPUT
-          echo "STACK_BUILD_IMAGE=$STACK_BUILD_IMAGE" >> $GITHUB_OUTPUT
 
   stack:
     runs-on: [self-hosted, Linux, ARM64]
     needs: [check, version]
     if: needs.check.outputs.status == 'convert'
     env:
-      STACK_ID: ${{ needs.version.outputs.STACK_ID }}
-      STACK_RUN_IMAGE: ${{ needs.version.outputs.STACK_RUN_IMAGE }}
-      STACK_BUILD_IMAGE: ${{ needs.version.outputs.STACK_BUILD_IMAGE }}
+      VERSION: ${{ needs.version.outputs.VERSION }}
+    outputs:
+      STACK_ID: ${{ steps.idnames.outputs.STACK_ID }}
+      STACK_IMAGES_PREFIX: ${{ steps.idnames.outputs.STACK_IMAGES_PREFIX }}
+      STACK_RUN_IMAGE: ${{ steps.stack-run.outputs.STACK_RUN_IMAGE }}
+      STACK_BUILD_IMAGE: ${{ steps.stack-build.outputs.STACK_BUILD_IMAGE }}
     steps:
+      - id: idnames
+        run: |
+          STACK_ID="$(jq '.stack.id' $BUILDER_DIR/info.json -r)"
+          echo "STACK_ID=$STACK_ID" >> $GITHUB_OUTPUT
+          echo "STACK_ID=$STACK_ID" >> $GITHUB_ENV
+
+          STACK_IMAGES_PREFIX=$(echo $BUILDER | sed 's|\(.*\)/\(.*\):\(.*\)|\1-\2-\3|')
+          echo "STACK_IMAGES_PREFIX=$STACK_IMAGES_PREFIX" >> $GITHUB_OUTPUT
+          echo "STACK_IMAGES_PREFIX=$STACK_IMAGES_PREFIX" >> $GITHUB_ENV
       - id: stack-build
         run: |
+          STACK_BUILD_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-build:arm64-$VERSION"
+          echo "STACK_BUILD_IMAGE=$STACK_BUILD_IMAGE" >> $GITHUB_OUTPUT
+
           docker build . \
               -t  $STACK_RUN_IMAGE \
               --build-arg STACK_ID="$STACK_ID" \
               --target run
       - id: stack-run
         run: |
+          STACK_RUN_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-run:arm64-$VERSION"
+          echo "STACK_RUN_IMAGE=$STACK_RUN_IMAGE" >> $GITHUB_OUTPUT
+
           docker build . \
               -t $STACK_BUILD_IMAGE \
               --build-arg STACK_ID="$STACK_ID" \
               --target build
+
+  builder:
+    runs-on: [self-hosted, Linux, ARM64]
+    needs: [check, convert, version, stack]
+    if: needs.check.outputs.status == 'convert'
+    outputs:
+      BUILDER_IMAGE: ${{ steps.create.outputs.BUILDER_IMAGE }}
+    env:
+      VERSION: ${{ needs.version.outputs.VERSION }}
+      STACK_ID: ${{ needs.version.outputs.STACK_ID }}
+      STACK_IMAGES_PREFIX: ${{ needs.version.outputs.STACK_IMAGES_PREFIX }}
+    steps:
+      - id: create
+        run: |
+          jq  --arg STACK_ID "$STACK_ID" \
+              --arg STACK_IMAGES_PREFIX "$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX" \
+              '. += {stack: {id: $STACK_ID, "images-prefix": $STACK_IMAGES_PREFIX}}' \
+              $BUILDER_DIR/info.json > $BUILDER_DIR/input.json
+
+          curl -X POST -H "Content-Type: application/json" \
+              -d "$(cat $BUILDER_DIR/input.json)" \
+              "http://localhost:58585/builder/arm64-${VERSION}" -s | yj -jt -i > $BUILDER_DIR/builder.toml
+
+          BUILDER_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:arm64-$VERSION"
+          echo "BUILDER_IMAGE=$BUILDER_IMAGE" >> $GITHUB_OUTPUT
+
+          pack builder create "$BUILDER_IMAGE" \
+              --config "$BUILDER_DIR/builder.toml" \
+              --pull-policy never
+
+  publish:
+    runs-on: [self-hosted, Linux, ARM64]
+    needs: [check, version, stack, builder]
+    if: needs.check.outputs.status == 'convert'
+    env:
+      VERSION: ${{ needs.version.outputs.VERSION }}
+      BUILDER_IMAGE: ${{ needs.builder.outputs.BUILDER_IMAGE }}
+      STACK_IMAGES_PREFIX: ${{ needs.stack.outputs.STACK_IMAGES_PREFIX }}
+      STACK_RUN_IMAGE: ${{ needs.stack.outputs.STACK_RUN_IMAGE }}
+      STACK_BUILD_IMAGE: ${{ needs.stack.outputs.STACK_BUILD_IMAGE }}
+    steps:
       - id: login
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - id: publish
+      - id: publish-images
         run: |
           echo docker push $STACK_RUN_IMAGE
           echo docker push $STACK_BUILD_IMAGE
+          echo docker push $BUILDER_IMAGE
+      - id: make-manifest
+        run: |
+          MANIFEST_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
+          echo "BUILDER_IMAGE=$BUILDER_IMAGE" >> $GITHUB_ENV
+
+          MANIFEST_EXISTS=$(docker manifest inspect $MANIFEST_IMAGE >/dev/null 2>/dev/null; echo $?)
+          if [ $MANIFEST_EXISTS -eq 0 ]; then
+              docker manifest rm $MANIFEST_IMAGE
+          fi
+
+          docker pull $BUILDER
+          docker manifest create $MANIFEST_IMAGE \
+              $BUILDER_IMAGE \
+              $BUILDER
+      - id: publish-manifest
+        run: |
+          echo docker push $MANIFEST_IMAGE
