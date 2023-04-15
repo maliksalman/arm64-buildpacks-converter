@@ -3,6 +3,7 @@ on: [ workflow_dispatch ]
 env:
   BUILDER: "paketobuildpacks/builder:tiny"
   BUILDER_DIR: "builders/paketobuildpacks/builder:tiny"
+  OCI_IMAGE_PREFIX: "docker.io/maliksalman"
 
 jobs:
 
@@ -28,24 +29,14 @@ jobs:
               echo "status=convert" >> $GITHUB_OUTPUT
           fi
 
-  convert:
+  start-manifest-fixer:
     runs-on: [self-hosted, Linux, ARM64]
-    needs: check
+    needs: [check]
     if: needs.check.outputs.status == 'convert'
     env:
       CACHE_DIR: ".work/cache"
-      OCI_IMAGE_PREFIX: "docker.io/maliksalman"
     steps:
-      - id: checkout
-        uses: actions/checkout@v3
-      - id: clone-dependencies
-        run: |
-          for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
-            BP_ID=$(echo "$BP" | jq -r ".id")
-            BP_VER=$(echo "$BP" | jq -r ".version")
-            ./clone-buildpack.sh "$BP_ID" "$BP_VER" ".work/buildpacks"
-          done
-      - id: start-manifest-fixer
+      - id: start
         run: |
           mkdir -p $CACHE_DIR
           echo "Cache: $PWD/$CACHE_DIR"
@@ -58,6 +49,21 @@ jobs:
               --user $(id -u):$(id -g) \
               -p 58585:8080 \
               maliksalman/buildpacks-manifest-fixer:1.0.0-arm64
+
+  convert:
+    runs-on: [self-hosted, Linux, ARM64]
+    needs: [check, start-manifest-fixer]
+    if: needs.check.outputs.status == 'convert'
+    steps:
+      - id: checkout
+        uses: actions/checkout@v3
+      - id: clone-buildpacks
+        run: |
+          for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
+            BP_ID=$(echo "$BP" | jq -r ".id")
+            BP_VER=$(echo "$BP" | jq -r ".version")
+            ./clone-buildpack.sh "$BP_ID" "$BP_VER" ".work/buildpacks"
+          done
       - id: convert-simple-buildpacks
         run: |
           for BP in $(jq '.buildpacks[] | {id,version}' -c $BUILDER_DIR/info.json); do
@@ -72,28 +78,68 @@ jobs:
             BP_VER=$(echo "$BP" | jq -r ".version")
             ./convert-buildpack.sh "$BP_ID" "$BP_VER" .work/buildpacks true $OCI_IMAGE_PREFIX
           done
-      - id: build-stack
-        run: |
-          # Figure out stack-id
-          export STACK_ID="$(jq '.stack.id' $BUILDER_DIR/info.json -r)"
-          export STACK_IMAGES_PREFIX=$(echo $BUILDER | sed 's|\(.*\)/\(.*\):\(.*\)|\1-\2-\3|')
 
-          # Create stack run image
+  version:
+    runs-on: [self-hosted, Linux, ARM64]
+    needs: [check]
+    if: needs.check.outputs.status == 'convert'
+    outputs:
+      VERSION: ${{ steps.bump-semver.outputs.new_version }}
+      STACK_ID: ${{ steps.idnames.outputs.STACK_ID }}
+      STACK_RUN_IMAGE: ${{ steps.idnames.outputs.STACK_RUN_IMAGE }}
+      STACK_BUILD_IMAGE: ${{ steps.idnames.outputs.STACK_BUILD_IMAGE }}
+    steps:
+      - id: existing-version
+        run: |
+          EXISTING_VER=$(cat $BUILDER_DIR/version)
+          echo "EXISTING_VER=$EXISTING_VER" >> $GITHUB_ENV
+      - id: bump-semver
+        uses: actions-ecosystem/action-bump-semver@v1
+        with:
+          current_version: ${{ env.EXISTING_VER }}
+          level: minor
+      - id: idnames
+        env:
+          VERSION: ${{ steps.bump-semver.outputs.new_version }}
+        run: |
+          echo "$VERSION" > $BUILDER_DIR/version
+
+          STACK_ID="$(jq '.stack.id' $BUILDER_DIR/info.json -r)"
+          STACK_IMAGES_PREFIX=$(echo $BUILDER | sed 's|\(.*\)/\(.*\):\(.*\)|\1-\2-\3|')
           STACK_RUN_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-run:arm64-$VERSION"
+          STACK_BUILD_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-build:arm64-$VERSION"
+
+          echo "STACK_ID=$STACK_ID" >> $GITHUB_OUTPUT
+          echo "STACK_RUN_IMAGE=$STACK_RUN_IMAGE" >> $GITHUB_OUTPUT
+          echo "STACK_BUILD_IMAGE=$STACK_BUILD_IMAGE" >> $GITHUB_OUTPUT
+
+  stack:
+    runs-on: [self-hosted, Linux, ARM64]
+    needs: [check, version]
+    if: needs.check.outputs.status == 'convert'
+    env:
+      STACK_ID: ${{ needs.version.outputs.STACK_ID }}
+      STACK_RUN_IMAGE: ${{ needs.version.outputs.STACK_RUN_IMAGE }}
+      STACK_BUILD_IMAGE: ${{ needs.version.outputs.STACK_BUILD_IMAGE }}
+    steps:
+      - id: stack-build
+        run: |
           docker build . \
               -t  $STACK_RUN_IMAGE \
               --build-arg STACK_ID="$STACK_ID" \
               --target run
-
-          # Create stack build image
-          STACK_BUILD_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX-build:arm64-$VERSION"
+      - id: stack-run
+        run: |
           docker build . \
               -t $STACK_BUILD_IMAGE \
               --build-arg STACK_ID="$STACK_ID" \
               --target build
-          
-          # make these variables available for next steps
-          echo "STACK_ID=$STACK_ID" >> $GITHUB_ENV
-          echo "STACK_RUN_IMAGE=$STACK_RUN_IMAGE" >> $GITHUB_ENV
-          echo "STACK_BUILD_IMAGE=$STACK_BUILD_IMAGE" >> $GITHUB_ENV
-
+      - id: login
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - id: publish
+        run:|
+          echo docker push $STACK_RUN_IMAGE
+          echo docker push $STACK_BUILD_IMAGE
