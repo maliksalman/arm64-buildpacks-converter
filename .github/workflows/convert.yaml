@@ -25,7 +25,7 @@ jobs:
               echo "status=skip" >> $GITHUB_OUTPUT
           else
               echo "Something changed, we will perform the conversion"
-              echo "status=skip" >> $GITHUB_OUTPUT
+              echo "status=convert" >> $GITHUB_OUTPUT
           fi
 
   convert:
