@@ -146,20 +146,22 @@ jobs:
       BUILDER_IMAGE: ${{ steps.create.outputs.BUILDER_IMAGE }}
     env:
       VERSION: ${{ needs.version.outputs.VERSION }}
-      STACK_ID: ${{ needs.version.outputs.STACK_ID }}
-      STACK_IMAGES_PREFIX: ${{ needs.version.outputs.STACK_IMAGES_PREFIX }}
+      STACK_ID: ${{ needs.stack.outputs.STACK_ID }}
+      STACK_IMAGES_PREFIX: ${{ needs.stack.outputs.STACK_IMAGES_PREFIX }}
     steps:
-      - id: create
+      - id: make-input
         run: |
           jq  --arg STACK_ID "$STACK_ID" \
               --arg STACK_IMAGES_PREFIX "$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX" \
               '. += {stack: {id: $STACK_ID, "images-prefix": $STACK_IMAGES_PREFIX}}' \
               $BUILDER_DIR/info.json > $BUILDER_DIR/input.json
-
+      - id: make-toml
+        run: |
           curl -X POST -H "Content-Type: application/json" \
               -d "$(cat $BUILDER_DIR/input.json)" \
               "http://localhost:58585/builder/arm64-${VERSION}" -s | yj -jt -i > $BUILDER_DIR/builder.toml
-
+      - id: create
+        run: |
           BUILDER_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:arm64-$VERSION"
           echo "BUILDER_IMAGE=$BUILDER_IMAGE" >> $GITHUB_OUTPUT
 
@@ -188,16 +190,18 @@ jobs:
           echo docker push $STACK_RUN_IMAGE
           echo docker push $STACK_BUILD_IMAGE
           echo docker push $BUILDER_IMAGE
-      - id: make-manifest
+      - id: manifest-name
         run: |
           MANIFEST_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
-          echo "BUILDER_IMAGE=$BUILDER_IMAGE" >> $GITHUB_ENV
-
+          echo "MANIFEST_IMAGE=$MANIFEST_IMAGE" >> $GITHUB_ENV
+      - id: reset-manifest
+        run: |
           MANIFEST_EXISTS=$(docker manifest inspect $MANIFEST_IMAGE >/dev/null 2>/dev/null; echo $?)
           if [ $MANIFEST_EXISTS -eq 0 ]; then
               docker manifest rm $MANIFEST_IMAGE
           fi
-
+      - id: make-manifest
+        run: |
           docker pull $BUILDER
           docker manifest create $MANIFEST_IMAGE \
               $BUILDER_IMAGE \
