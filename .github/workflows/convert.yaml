@@ -180,33 +180,32 @@ jobs:
       STACK_RUN_IMAGE: ${{ needs.stack.outputs.STACK_RUN_IMAGE }}
       STACK_BUILD_IMAGE: ${{ needs.stack.outputs.STACK_BUILD_IMAGE }}
     steps:
-      - id: login
+      - name: login
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - id: publish-images
+      - name: publish-images
         run: |
           echo docker push $STACK_RUN_IMAGE
           echo docker push $STACK_BUILD_IMAGE
           echo docker push $BUILDER_IMAGE
-      - id: manifest-name
+      - name: manifest-name
         run: |
           MANIFEST_IMAGE="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
           echo "MANIFEST_IMAGE=$MANIFEST_IMAGE" >> $GITHUB_ENV
-      - id: reset-manifest
+      - name: reset-manifest
         run: |
-          MANIFEST_EXISTS=true
-          docker manifest inspect $MANIFEST_IMAGE >/dev/null 2>/dev/null || MANIFEST_EXISTS=false
-          if [ "$MANIFEST_EXISTS" == "true" ]; then
+          MANIFEST_EXISTS=$(docker manifest inspect $MANIFEST_IMAGE >/dev/null 2>/dev/null && echo true || echo false)
+          if [[ "$MANIFEST_EXISTS" == "true" ]]; then
               docker manifest rm $MANIFEST_IMAGE
           fi
-      - id: make-manifest
+      - name: make-manifest
         run: |
           docker pull $BUILDER
           docker manifest create $MANIFEST_IMAGE \
               $BUILDER_IMAGE \
               $BUILDER
-      - id: publish-manifest
+      - name: publish-manifest
         run: |
           echo docker push $MANIFEST_IMAGE
