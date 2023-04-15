@@ -55,6 +55,7 @@ jobs:
               -e CONFIG_ARTIFACTSHACACHEDIR=/workspace/cache \
               -e CONFIG_IMAGEPREFIX=$OCI_IMAGE_PREFIX \
               -v $PWD/$CACHE_DIR:/workspace/cache \
+              --user $(id -u):$(id -g) \
               -p 58585:8080 \
               maliksalman/buildpacks-manifest-fixer:1.0.0-arm64
       - id: convert-simple-buildpacks
