@@ -14,6 +14,8 @@ jobs:
     steps:
       - id: checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - id: get-manifest
         run: |
           mkdir -p $BUILDER_DIR
@@ -204,10 +206,6 @@ jobs:
           LATEST_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:latest"
           echo "LATEST_MANIFEST=$LATEST_MANIFEST" >> $GITHUB_ENV
           ./make-manifest.sh "$LATEST_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
-      - name: publish-manifests
-        run: |
-          docker manifest push $VERSIONED_MANIFEST
-          docker manifest push $LATEST_MANIFEST
 
   git-push:
     runs-on: [self-hosted, Linux, ARM64]
@@ -217,7 +215,9 @@ jobs:
       VERSIONED_MANIFEST: ${{ needs.publish.outputs.VERSIONED_MANIFEST }}
     steps:
       - name: push
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          message: "AUTO: published [${{ env.VERSIONED_MANIFEST }}]"
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "auto-published: [$VERSIONED_MANIFEST]"
+          git push
