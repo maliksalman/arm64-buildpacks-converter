@@ -176,7 +176,7 @@ jobs:
     needs: [check, version, stack, builder]
     if: needs.check.outputs.status == 'convert'
     outputs:
-      VERSIONED_MANIFEST: ${{ steps.make-versioned-manifest.outputs.VERSIONED_MANIFEST }}
+      VERSIONED_MANIFEST: ${{ steps.versioned-manifest.outputs.VERSIONED_MANIFEST }}
     env:
       VERSION: ${{ needs.version.outputs.VERSION }}
       BUILDER_IMAGE: ${{ needs.builder.outputs.BUILDER_IMAGE }}
@@ -184,27 +184,24 @@ jobs:
       STACK_RUN_IMAGE: ${{ needs.stack.outputs.STACK_RUN_IMAGE }}
       STACK_BUILD_IMAGE: ${{ needs.stack.outputs.STACK_BUILD_IMAGE }}
     steps:
-      - name: login
+      - id: login
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
-      - name: publish-images
+      - id: publish-images
         run: |
           docker push $STACK_RUN_IMAGE
           docker push $STACK_BUILD_IMAGE
           docker push $BUILDER_IMAGE
-      - name: make-versioned-manifest
-        id: make-versioned-manifest
+      - id: versioned-manifest
         run: |
-          VERSIONED_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
-          echo "VERSIONED_MANIFEST=$VERSIONED_MANIFEST" >> $GITHUB_ENV
+          export VERSIONED_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:$VERSION"
           echo "VERSIONED_MANIFEST=$VERSIONED_MANIFEST" >> $GITHUB_OUTPUT
           ./make-manifest.sh "$VERSIONED_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
-      - name: make-latest-manifest
+      - id: latest-manifest
         run: |
-          LATEST_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:latest"
-          echo "LATEST_MANIFEST=$LATEST_MANIFEST" >> $GITHUB_ENV
+          export LATEST_MANIFEST="$OCI_IMAGE_PREFIX/$STACK_IMAGES_PREFIX:latest"
           ./make-manifest.sh "$LATEST_MANIFEST" "$BUILDER_IMAGE" "$BUILDER"
 
   git-push:
@@ -212,13 +209,13 @@ jobs:
     needs: [check, version, publish]
     if: needs.check.outputs.status == 'convert'
     env:
-      COMMIT_MESSAGE: "auto-published: [${{ needs.publish.outputs.VERSIONED_MANIFEST }}]"
+      VERSIONED_MANIFEST: ${{ needs.publish.outputs.VERSIONED_MANIFEST }}
     steps:
-      - name: push
+      - id: push
         uses: actions-js/push@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          message: ${{ env.COMMIT_MESSAGE }}
+          message: "auto-published: ${{ env.VERSIONED_MANIFEST }}"
           author_email: github-actions@github.com
           author_name: github-actions
 
