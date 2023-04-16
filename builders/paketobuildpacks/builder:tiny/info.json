@@ -591,8 +591,7 @@
       "buildpacks": [
         {
           "id": "paketo-buildpacks/procfile",
-          "version": "5.6.1",
-          "another": null
+          "version": "5.6.1"
         }
       ]
     }
