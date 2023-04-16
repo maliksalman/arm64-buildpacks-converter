@@ -1,5 +1,8 @@
 name: Convert Tiny Builder
-on: [ workflow_dispatch ]
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * *'
 env:
   BUILDER: "paketobuildpacks/builder:tiny"
   BUILDER_DIR: "builders/paketobuildpacks/builder:tiny"
@@ -19,7 +22,8 @@ jobs:
       - id: get-manifest
         run: |
           mkdir -p $BUILDER_DIR
-          pack builder inspect $BUILDER -o json | jq '.remote_info | del(..|nulls)' > "$BUILDER_DIR/info.json"
+          pack builder inspect $BUILDER \
+            -o json | jq '.remote_info | del(..|nulls)' --sort-keys > "$BUILDER_DIR/info.json"
       - id: check
         run: |
           CHANGED=$(git diff --exit-code --output=/dev/null "$BUILDER_DIR/info.json"; echo $?)
@@ -187,8 +191,8 @@ jobs:
       - id: login
         uses: docker/login-action@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ vars.DOCKERHUB_PASSWORD }}
+          username: ${{ vars.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - id: publish-images
         run: |
           docker push $STACK_RUN_IMAGE
