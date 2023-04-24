@@ -4,7 +4,7 @@
       "homepage": "https://github.com/paketo-buildpacks/apache-tomcat",
       "id": "paketo-buildpacks/apache-tomcat",
       "name": "Paketo Buildpack for Apache Tomcat",
-      "version": "7.12.1"
+      "version": "7.13.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/apache-tomee",
@@ -22,7 +22,7 @@
       "homepage": "https://github.com/paketo-buildpacks/bellsoft-liberica",
       "id": "paketo-buildpacks/bellsoft-liberica",
       "name": "Paketo Buildpack for BellSoft Liberica",
-      "version": "10.1.0"
+      "version": "10.2.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/ca-certificates",
@@ -40,7 +40,7 @@
       "homepage": "https://github.com/paketo-buildpacks/datadog",
       "id": "paketo-buildpacks/datadog",
       "name": "Paketo Buildpack for Datadog",
-      "version": "3.7.0"
+      "version": "3.8.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/dist-zip",
@@ -100,7 +100,7 @@
       "homepage": "https://github.com/paketo-buildpacks/google-stackdriver",
       "id": "paketo-buildpacks/google-stackdriver",
       "name": "Paketo Buildpack for Google Stackdriver",
-      "version": "7.4.0"
+      "version": "7.5.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/gradle",
@@ -124,7 +124,7 @@
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.3.0"
+      "version": "9.4.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
@@ -136,7 +136,7 @@
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.2.0"
+      "version": "8.3.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
@@ -166,7 +166,7 @@
       "homepage": "https://github.com/paketo-buildpacks/node-engine",
       "id": "paketo-buildpacks/node-engine",
       "name": "Paketo Buildpack for Node Engine",
-      "version": "1.4.1"
+      "version": "1.5.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/procfile",
@@ -208,7 +208,7 @@
       "homepage": "https://github.com/paketo-buildpacks/yarn",
       "id": "paketo-buildpacks/yarn",
       "name": "Paketo Buildpack for Yarn",
-      "version": "1.1.5"
+      "version": "1.1.6"
     }
   ],
   "created_by": {
@@ -233,7 +233,7 @@
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.1.0"
+              "version": "10.2.0"
             },
             {
               "id": "paketo-buildpacks/syft",
@@ -273,7 +273,7 @@
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.7.0"
+              "version": "3.8.0"
             },
             {
               "id": "paketo-buildpacks/native-image",
@@ -296,7 +296,7 @@
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.2.0"
+          "version": "8.3.0"
         }
       ]
     },
@@ -311,17 +311,17 @@
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.1.0"
+              "version": "10.2.0"
             },
             {
               "id": "paketo-buildpacks/yarn",
               "optional": true,
-              "version": "1.1.5"
+              "version": "1.1.6"
             },
             {
               "id": "paketo-buildpacks/node-engine",
               "optional": true,
-              "version": "1.4.1"
+              "version": "1.5.0"
             },
             {
               "id": "paketo-buildpacks/syft",
@@ -366,7 +366,7 @@
             {
               "id": "paketo-buildpacks/apache-tomcat",
               "optional": true,
-              "version": "7.12.1"
+              "version": "7.13.0"
             },
             {
               "id": "paketo-buildpacks/apache-tomee",
@@ -406,12 +406,12 @@
             {
               "id": "paketo-buildpacks/google-stackdriver",
               "optional": true,
-              "version": "7.4.0"
+              "version": "7.5.0"
             },
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.7.0"
+              "version": "3.8.0"
             },
             {
               "id": "paketo-buildpacks/java-memory-assistant",
@@ -435,7 +435,7 @@
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.3.0"
+          "version": "9.4.0"
         }
       ]
     },
