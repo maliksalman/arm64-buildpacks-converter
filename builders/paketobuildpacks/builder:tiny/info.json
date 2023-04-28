@@ -70,31 +70,31 @@
       "homepage": "https://github.com/paketo-buildpacks/git",
       "id": "paketo-buildpacks/git",
       "name": "Paketo Buildpack for Git",
-      "version": "1.0.5"
+      "version": "1.0.6"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go",
       "id": "paketo-buildpacks/go",
       "name": "Paketo Buildpack for Go",
-      "version": "4.3.3"
+      "version": "4.3.4"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-build",
       "id": "paketo-buildpacks/go-build",
       "name": "Paketo Buildpack for Go Build",
-      "version": "2.0.16"
+      "version": "2.0.17"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-dist",
       "id": "paketo-buildpacks/go-dist",
       "name": "Paketo Buildpack for Go Distribution",
-      "version": "2.3.3"
+      "version": "2.3.4"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-mod-vendor",
       "id": "paketo-buildpacks/go-mod-vendor",
       "name": "Paketo Buildpack for Go Mod Vendor",
-      "version": "1.0.15"
+      "version": "1.0.16"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/google-stackdriver",
@@ -455,20 +455,20 @@
             },
             {
               "id": "paketo-buildpacks/go-dist",
-              "version": "2.3.3"
+              "version": "2.3.4"
             },
             {
               "id": "paketo-buildpacks/git",
               "optional": true,
-              "version": "1.0.5"
+              "version": "1.0.6"
             },
             {
               "id": "paketo-buildpacks/go-mod-vendor",
-              "version": "1.0.15"
+              "version": "1.0.16"
             },
             {
               "id": "paketo-buildpacks/go-build",
-              "version": "2.0.16"
+              "version": "2.0.17"
             },
             {
               "id": "paketo-buildpacks/procfile",
@@ -487,7 +487,7 @@
             }
           ],
           "id": "paketo-buildpacks/go",
-          "version": "4.3.3"
+          "version": "4.3.4"
         },
         {
           "buildpacks": [
@@ -503,16 +503,16 @@
             },
             {
               "id": "paketo-buildpacks/go-dist",
-              "version": "2.3.3"
+              "version": "2.3.4"
             },
             {
               "id": "paketo-buildpacks/git",
               "optional": true,
-              "version": "1.0.5"
+              "version": "1.0.6"
             },
             {
               "id": "paketo-buildpacks/go-build",
-              "version": "2.0.16"
+              "version": "2.0.17"
             },
             {
               "id": "paketo-buildpacks/procfile",
@@ -531,7 +531,7 @@
             }
           ],
           "id": "paketo-buildpacks/go",
-          "version": "4.3.3"
+          "version": "4.3.4"
         }
       ]
     },
