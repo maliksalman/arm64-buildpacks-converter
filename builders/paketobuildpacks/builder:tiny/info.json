@@ -16,13 +16,13 @@
       "homepage": "https://github.com/paketo-buildpacks/azure-application-insights",
       "id": "paketo-buildpacks/azure-application-insights",
       "name": "Paketo Buildpack for Azure Application Insights",
-      "version": "5.12.1"
+      "version": "5.13.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/bellsoft-liberica",
       "id": "paketo-buildpacks/bellsoft-liberica",
       "name": "Paketo Buildpack for BellSoft Liberica",
-      "version": "10.2.0"
+      "version": "10.2.1"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/ca-certificates",
@@ -124,7 +124,7 @@
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.4.0"
+      "version": "9.5.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
@@ -136,7 +136,7 @@
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.3.0"
+      "version": "8.4.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
@@ -190,7 +190,7 @@
       "homepage": "https://github.com/paketo-buildpacks/syft",
       "id": "paketo-buildpacks/syft",
       "name": "Paketo Buildpack for Syft",
-      "version": "1.28.0"
+      "version": "1.29.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/upx",
@@ -233,12 +233,12 @@
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.2.0"
+              "version": "10.2.1"
             },
             {
               "id": "paketo-buildpacks/syft",
               "optional": true,
-              "version": "1.28.0"
+              "version": "1.29.0"
             },
             {
               "id": "paketo-buildpacks/leiningen",
@@ -296,7 +296,7 @@
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.3.0"
+          "version": "8.4.0"
         }
       ]
     },
@@ -311,7 +311,7 @@
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.2.0"
+              "version": "10.2.1"
             },
             {
               "id": "paketo-buildpacks/yarn",
@@ -326,7 +326,7 @@
             {
               "id": "paketo-buildpacks/syft",
               "optional": true,
-              "version": "1.28.0"
+              "version": "1.29.0"
             },
             {
               "id": "paketo-buildpacks/leiningen",
@@ -401,7 +401,7 @@
             {
               "id": "paketo-buildpacks/azure-application-insights",
               "optional": true,
-              "version": "5.12.1"
+              "version": "5.13.0"
             },
             {
               "id": "paketo-buildpacks/google-stackdriver",
@@ -435,7 +435,7 @@
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.4.0"
+          "version": "9.5.0"
         }
       ]
     },
