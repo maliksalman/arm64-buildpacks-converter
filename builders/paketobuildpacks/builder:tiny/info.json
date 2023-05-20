@@ -175,6 +175,12 @@
       "version": "5.6.1"
     },
     {
+      "homepage": "https://github.com/paketo-buildpacks/procfile",
+      "id": "paketo-buildpacks/procfile",
+      "name": "Paketo Buildpack for Procfile",
+      "version": "5.6.2"
+    },
+    {
       "homepage": "https://github.com/paketo-buildpacks/sbt",
       "id": "paketo-buildpacks/sbt",
       "name": "Paketo Buildpack for SBT",
@@ -539,7 +545,7 @@
       "buildpacks": [
         {
           "id": "paketo-buildpacks/procfile",
-          "version": "5.6.1"
+          "version": "5.6.2"
         }
       ]
     }
