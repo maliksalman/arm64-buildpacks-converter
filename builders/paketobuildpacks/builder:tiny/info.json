@@ -31,6 +31,12 @@
       "version": "3.6.1"
     },
     {
+      "homepage": "https://github.com/paketo-buildpacks/ca-certificates",
+      "id": "paketo-buildpacks/ca-certificates",
+      "name": "Paketo Buildpack for CA Certificates",
+      "version": "3.6.2"
+    },
+    {
       "homepage": "https://github.com/paketo-buildpacks/clojure-tools",
       "id": "paketo-buildpacks/clojure-tools",
       "name": "Paketo Buildpack for Clojure Tools",
@@ -61,10 +67,16 @@
       "version": "4.5.1"
     },
     {
+      "homepage": "https://github.com/paketo-buildpacks/environment-variables",
+      "id": "paketo-buildpacks/environment-variables",
+      "name": "Paketo Buildpack for Environment Variables",
+      "version": "4.5.2"
+    },
+    {
       "homepage": "https://github.com/paketo-buildpacks/executable-jar",
       "id": "paketo-buildpacks/executable-jar",
       "name": "Paketo Buildpack for Executable JAR",
-      "version": "6.7.2"
+      "version": "6.7.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/git",
@@ -130,7 +142,7 @@
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.8.0"
+      "version": "9.9.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
@@ -142,7 +154,7 @@
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.7.0"
+      "version": "8.7.1"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
@@ -154,7 +166,7 @@
       "homepage": "https://github.com/paketo-buildpacks/liberty",
       "id": "paketo-buildpacks/liberty",
       "name": "Paketo Buildpack for Liberty",
-      "version": "3.7.2"
+      "version": "3.8.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/maven",
@@ -172,7 +184,7 @@
       "homepage": "https://github.com/paketo-buildpacks/node-engine",
       "id": "paketo-buildpacks/node-engine",
       "name": "Paketo Buildpack for Node Engine",
-      "version": "1.5.1"
+      "version": "1.5.2"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/procfile",
@@ -185,6 +197,12 @@
       "id": "paketo-buildpacks/procfile",
       "name": "Paketo Buildpack for Procfile",
       "version": "5.6.2"
+    },
+    {
+      "homepage": "https://github.com/paketo-buildpacks/procfile",
+      "id": "paketo-buildpacks/procfile",
+      "name": "Paketo Buildpack for Procfile",
+      "version": "5.6.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/sbt",
@@ -220,7 +238,7 @@
       "homepage": "https://github.com/paketo-buildpacks/yarn",
       "id": "paketo-buildpacks/yarn",
       "name": "Paketo Buildpack for Yarn",
-      "version": "1.1.7"
+      "version": "1.1.8"
     }
   ],
   "created_by": {
@@ -236,7 +254,7 @@
             {
               "id": "paketo-buildpacks/ca-certificates",
               "optional": true,
-              "version": "3.6.1"
+              "version": "3.6.2"
             },
             {
               "id": "paketo-buildpacks/upx",
@@ -275,7 +293,7 @@
             {
               "id": "paketo-buildpacks/executable-jar",
               "optional": true,
-              "version": "6.7.2"
+              "version": "6.7.3"
             },
             {
               "id": "paketo-buildpacks/spring-boot",
@@ -299,7 +317,7 @@
             {
               "id": "paketo-buildpacks/environment-variables",
               "optional": true,
-              "version": "4.5.1"
+              "version": "4.5.2"
             },
             {
               "id": "paketo-buildpacks/image-labels",
@@ -308,7 +326,7 @@
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.7.0"
+          "version": "8.7.1"
         }
       ]
     },
@@ -319,7 +337,7 @@
             {
               "id": "paketo-buildpacks/ca-certificates",
               "optional": true,
-              "version": "3.6.1"
+              "version": "3.6.2"
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
@@ -328,12 +346,12 @@
             {
               "id": "paketo-buildpacks/yarn",
               "optional": true,
-              "version": "1.1.7"
+              "version": "1.1.8"
             },
             {
               "id": "paketo-buildpacks/node-engine",
               "optional": true,
-              "version": "1.5.1"
+              "version": "1.5.2"
             },
             {
               "id": "paketo-buildpacks/syft",
@@ -373,7 +391,7 @@
             {
               "id": "paketo-buildpacks/executable-jar",
               "optional": true,
-              "version": "6.7.2"
+              "version": "6.7.3"
             },
             {
               "id": "paketo-buildpacks/apache-tomcat",
@@ -388,7 +406,7 @@
             {
               "id": "paketo-buildpacks/liberty",
               "optional": true,
-              "version": "3.7.2"
+              "version": "3.8.0"
             },
             {
               "id": "paketo-buildpacks/dist-zip",
@@ -438,7 +456,7 @@
             {
               "id": "paketo-buildpacks/environment-variables",
               "optional": true,
-              "version": "4.5.1"
+              "version": "4.5.2"
             },
             {
               "id": "paketo-buildpacks/image-labels",
@@ -447,7 +465,7 @@
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.8.0"
+          "version": "9.9.0"
         }
       ]
     },
@@ -551,7 +569,7 @@
       "buildpacks": [
         {
           "id": "paketo-buildpacks/procfile",
-          "version": "5.6.2"
+          "version": "5.6.3"
         }
       ]
     }
