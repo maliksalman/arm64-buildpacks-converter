@@ -28,12 +28,6 @@
       "homepage": "https://github.com/paketo-buildpacks/ca-certificates",
       "id": "paketo-buildpacks/ca-certificates",
       "name": "Paketo Buildpack for CA Certificates",
-      "version": "3.6.1"
-    },
-    {
-      "homepage": "https://github.com/paketo-buildpacks/ca-certificates",
-      "id": "paketo-buildpacks/ca-certificates",
-      "name": "Paketo Buildpack for CA Certificates",
       "version": "3.6.2"
     },
     {
@@ -64,12 +58,6 @@
       "homepage": "https://github.com/paketo-buildpacks/environment-variables",
       "id": "paketo-buildpacks/environment-variables",
       "name": "Paketo Buildpack for Environment Variables",
-      "version": "4.5.1"
-    },
-    {
-      "homepage": "https://github.com/paketo-buildpacks/environment-variables",
-      "id": "paketo-buildpacks/environment-variables",
-      "name": "Paketo Buildpack for Environment Variables",
       "version": "4.5.2"
     },
     {
@@ -88,25 +76,25 @@
       "homepage": "https://github.com/paketo-buildpacks/go",
       "id": "paketo-buildpacks/go",
       "name": "Paketo Buildpack for Go",
-      "version": "4.3.6"
+      "version": "4.4.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-build",
       "id": "paketo-buildpacks/go-build",
       "name": "Paketo Buildpack for Go Build",
-      "version": "2.0.19"
+      "version": "2.0.20"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-dist",
       "id": "paketo-buildpacks/go-dist",
       "name": "Paketo Buildpack for Go Distribution",
-      "version": "2.3.6"
+      "version": "2.3.7"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-mod-vendor",
       "id": "paketo-buildpacks/go-mod-vendor",
       "name": "Paketo Buildpack for Go Mod Vendor",
-      "version": "1.0.18"
+      "version": "1.0.19"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/google-stackdriver",
@@ -119,12 +107,6 @@
       "id": "paketo-buildpacks/gradle",
       "name": "Paketo Buildpack for Gradle",
       "version": "7.2.2"
-    },
-    {
-      "homepage": "https://github.com/paketo-buildpacks/image-labels",
-      "id": "paketo-buildpacks/image-labels",
-      "name": "Paketo Buildpack for Image Labels",
-      "version": "4.4.2"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/image-labels",
@@ -185,12 +167,6 @@
       "id": "paketo-buildpacks/node-engine",
       "name": "Paketo Buildpack for Node Engine",
       "version": "1.5.2"
-    },
-    {
-      "homepage": "https://github.com/paketo-buildpacks/procfile",
-      "id": "paketo-buildpacks/procfile",
-      "name": "Paketo Buildpack for Procfile",
-      "version": "5.6.1"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/procfile",
@@ -476,7 +452,7 @@
             {
               "id": "paketo-buildpacks/ca-certificates",
               "optional": true,
-              "version": "3.6.1"
+              "version": "3.6.2"
             },
             {
               "id": "paketo-buildpacks/watchexec",
@@ -485,7 +461,7 @@
             },
             {
               "id": "paketo-buildpacks/go-dist",
-              "version": "2.3.6"
+              "version": "2.3.7"
             },
             {
               "id": "paketo-buildpacks/git",
@@ -494,37 +470,37 @@
             },
             {
               "id": "paketo-buildpacks/go-mod-vendor",
-              "version": "1.0.18"
+              "version": "1.0.19"
             },
             {
               "id": "paketo-buildpacks/go-build",
-              "version": "2.0.19"
+              "version": "2.0.20"
             },
             {
               "id": "paketo-buildpacks/procfile",
               "optional": true,
-              "version": "5.6.1"
+              "version": "5.6.3"
             },
             {
               "id": "paketo-buildpacks/environment-variables",
               "optional": true,
-              "version": "4.5.1"
+              "version": "4.5.2"
             },
             {
               "id": "paketo-buildpacks/image-labels",
               "optional": true,
-              "version": "4.4.2"
+              "version": "4.5.0"
             }
           ],
           "id": "paketo-buildpacks/go",
-          "version": "4.3.6"
+          "version": "4.4.0"
         },
         {
           "buildpacks": [
             {
               "id": "paketo-buildpacks/ca-certificates",
               "optional": true,
-              "version": "3.6.1"
+              "version": "3.6.2"
             },
             {
               "id": "paketo-buildpacks/watchexec",
@@ -533,7 +509,7 @@
             },
             {
               "id": "paketo-buildpacks/go-dist",
-              "version": "2.3.6"
+              "version": "2.3.7"
             },
             {
               "id": "paketo-buildpacks/git",
@@ -542,26 +518,26 @@
             },
             {
               "id": "paketo-buildpacks/go-build",
-              "version": "2.0.19"
+              "version": "2.0.20"
             },
             {
               "id": "paketo-buildpacks/procfile",
               "optional": true,
-              "version": "5.6.1"
+              "version": "5.6.3"
             },
             {
               "id": "paketo-buildpacks/environment-variables",
               "optional": true,
-              "version": "4.5.1"
+              "version": "4.5.2"
             },
             {
               "id": "paketo-buildpacks/image-labels",
               "optional": true,
-              "version": "4.4.2"
+              "version": "4.5.0"
             }
           ],
           "id": "paketo-buildpacks/go",
-          "version": "4.3.6"
+          "version": "4.4.0"
         }
       ]
     },
