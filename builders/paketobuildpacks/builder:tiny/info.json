@@ -4,25 +4,25 @@
       "homepage": "https://github.com/paketo-buildpacks/apache-tomcat",
       "id": "paketo-buildpacks/apache-tomcat",
       "name": "Paketo Buildpack for Apache Tomcat",
-      "version": "7.13.4"
+      "version": "7.13.5"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/apache-tomee",
       "id": "paketo-buildpacks/apache-tomee",
       "name": "Paketo Buildpack for Apache Tomee",
-      "version": "1.7.2"
+      "version": "1.7.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/azure-application-insights",
       "id": "paketo-buildpacks/azure-application-insights",
       "name": "Paketo Buildpack for Azure Application Insights",
-      "version": "5.14.2"
+      "version": "5.15.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/bellsoft-liberica",
       "id": "paketo-buildpacks/bellsoft-liberica",
       "name": "Paketo Buildpack for BellSoft Liberica",
-      "version": "10.2.3"
+      "version": "10.2.4"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/ca-certificates",
@@ -34,25 +34,25 @@
       "homepage": "https://github.com/paketo-buildpacks/clojure-tools",
       "id": "paketo-buildpacks/clojure-tools",
       "name": "Paketo Buildpack for Clojure Tools",
-      "version": "2.8.3"
+      "version": "2.8.4"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/datadog",
       "id": "paketo-buildpacks/datadog",
       "name": "Paketo Buildpack for Datadog",
-      "version": "3.11.1"
+      "version": "3.12.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/dist-zip",
       "id": "paketo-buildpacks/dist-zip",
       "name": "Paketo Buildpack for DistZip",
-      "version": "5.6.2"
+      "version": "5.6.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/encrypt-at-rest",
       "id": "paketo-buildpacks/encrypt-at-rest",
       "name": "Paketo Buildpack for Encrypt-at-Rest",
-      "version": "4.5.1"
+      "version": "4.5.2"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/environment-variables",
@@ -100,13 +100,13 @@
       "homepage": "https://github.com/paketo-buildpacks/google-stackdriver",
       "id": "paketo-buildpacks/google-stackdriver",
       "name": "Paketo Buildpack for Google Stackdriver",
-      "version": "7.5.3"
+      "version": "7.6.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/gradle",
       "id": "paketo-buildpacks/gradle",
       "name": "Paketo Buildpack for Gradle",
-      "version": "7.2.2"
+      "version": "7.2.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/image-labels",
@@ -115,34 +115,40 @@
       "version": "4.5.0"
     },
     {
+      "homepage": "https://github.com/paketo-buildpacks/image-labels",
+      "id": "paketo-buildpacks/image-labels",
+      "name": "Paketo Buildpack for Image Labels",
+      "version": "4.5.1"
+    },
+    {
       "homepage": "https://github.com/paketo-buildpacks/jattach",
       "id": "paketo-buildpacks/jattach",
       "name": "Paketo Buildpack for JAttach",
-      "version": "1.4.2"
+      "version": "1.4.3"
     },
     {
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.9.0"
+      "version": "9.10.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
       "id": "paketo-buildpacks/java-memory-assistant",
       "name": "Paketo Buildpack for Java Memory Assistant",
-      "version": "1.4.2"
+      "version": "1.4.3"
     },
     {
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.7.1"
+      "version": "8.8.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
       "id": "paketo-buildpacks/leiningen",
       "name": "Paketo Buildpack for Leiningen",
-      "version": "4.6.2"
+      "version": "4.6.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/liberty",
@@ -154,13 +160,13 @@
       "homepage": "https://github.com/paketo-buildpacks/maven",
       "id": "paketo-buildpacks/maven",
       "name": "Paketo Buildpack for Maven",
-      "version": "6.15.3"
+      "version": "6.15.4"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/native-image",
       "id": "paketo-buildpacks/native-image",
       "name": "Paketo Buildpack for Native Image",
-      "version": "5.11.0"
+      "version": "5.11.1"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/node-engine",
@@ -172,43 +178,43 @@
       "homepage": "https://github.com/paketo-buildpacks/procfile",
       "id": "paketo-buildpacks/procfile",
       "name": "Paketo Buildpack for Procfile",
-      "version": "5.6.2"
-    },
-    {
-      "homepage": "https://github.com/paketo-buildpacks/procfile",
-      "id": "paketo-buildpacks/procfile",
-      "name": "Paketo Buildpack for Procfile",
       "version": "5.6.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/sbt",
       "id": "paketo-buildpacks/sbt",
       "name": "Paketo Buildpack for SBT",
-      "version": "6.11.2"
+      "version": "6.12.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/spring-boot",
       "id": "paketo-buildpacks/spring-boot",
       "name": "Paketo Buildpack for Spring Boot",
-      "version": "5.25.1"
+      "version": "5.25.2"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/syft",
       "id": "paketo-buildpacks/syft",
       "name": "Paketo Buildpack for Syft",
-      "version": "1.30.1"
+      "version": "1.31.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/upx",
       "id": "paketo-buildpacks/upx",
       "name": "Paketo Buildpack for UPX",
-      "version": "3.4.1"
+      "version": "3.4.2"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/watchexec",
       "id": "paketo-buildpacks/watchexec",
       "name": "Paketo Buildpack for Watchexec",
       "version": "2.8.1"
+    },
+    {
+      "homepage": "https://github.com/paketo-buildpacks/watchexec",
+      "id": "paketo-buildpacks/watchexec",
+      "name": "Paketo Buildpack for Watchexec",
+      "version": "2.8.2"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/yarn",
@@ -235,36 +241,36 @@
             {
               "id": "paketo-buildpacks/upx",
               "optional": true,
-              "version": "3.4.1"
+              "version": "3.4.2"
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.2.3"
+              "version": "10.2.4"
             },
             {
               "id": "paketo-buildpacks/syft",
               "optional": true,
-              "version": "1.30.1"
+              "version": "1.31.0"
             },
             {
               "id": "paketo-buildpacks/leiningen",
               "optional": true,
-              "version": "4.6.2"
+              "version": "4.6.3"
             },
             {
               "id": "paketo-buildpacks/gradle",
               "optional": true,
-              "version": "7.2.2"
+              "version": "7.2.3"
             },
             {
               "id": "paketo-buildpacks/maven",
               "optional": true,
-              "version": "6.15.3"
+              "version": "6.15.4"
             },
             {
               "id": "paketo-buildpacks/sbt",
               "optional": true,
-              "version": "6.11.2"
+              "version": "6.12.0"
             },
             {
               "id": "paketo-buildpacks/executable-jar",
@@ -274,21 +280,21 @@
             {
               "id": "paketo-buildpacks/spring-boot",
               "optional": true,
-              "version": "5.25.1"
+              "version": "5.25.2"
             },
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.11.1"
+              "version": "3.12.0"
             },
             {
               "id": "paketo-buildpacks/native-image",
-              "version": "5.11.0"
+              "version": "5.11.1"
             },
             {
               "id": "paketo-buildpacks/procfile",
               "optional": true,
-              "version": "5.6.2"
+              "version": "5.6.3"
             },
             {
               "id": "paketo-buildpacks/environment-variables",
@@ -298,11 +304,11 @@
             {
               "id": "paketo-buildpacks/image-labels",
               "optional": true,
-              "version": "4.5.0"
+              "version": "4.5.1"
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.7.1"
+          "version": "8.8.0"
         }
       ]
     },
@@ -317,7 +323,7 @@
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.2.3"
+              "version": "10.2.4"
             },
             {
               "id": "paketo-buildpacks/yarn",
@@ -332,37 +338,37 @@
             {
               "id": "paketo-buildpacks/syft",
               "optional": true,
-              "version": "1.30.1"
+              "version": "1.31.0"
             },
             {
               "id": "paketo-buildpacks/leiningen",
               "optional": true,
-              "version": "4.6.2"
+              "version": "4.6.3"
             },
             {
               "id": "paketo-buildpacks/clojure-tools",
               "optional": true,
-              "version": "2.8.3"
+              "version": "2.8.4"
             },
             {
               "id": "paketo-buildpacks/gradle",
               "optional": true,
-              "version": "7.2.2"
+              "version": "7.2.3"
             },
             {
               "id": "paketo-buildpacks/maven",
               "optional": true,
-              "version": "6.15.3"
+              "version": "6.15.4"
             },
             {
               "id": "paketo-buildpacks/sbt",
               "optional": true,
-              "version": "6.11.2"
+              "version": "6.12.0"
             },
             {
               "id": "paketo-buildpacks/watchexec",
               "optional": true,
-              "version": "2.8.1"
+              "version": "2.8.2"
             },
             {
               "id": "paketo-buildpacks/executable-jar",
@@ -372,12 +378,12 @@
             {
               "id": "paketo-buildpacks/apache-tomcat",
               "optional": true,
-              "version": "7.13.4"
+              "version": "7.13.5"
             },
             {
               "id": "paketo-buildpacks/apache-tomee",
               "optional": true,
-              "version": "1.7.2"
+              "version": "1.7.3"
             },
             {
               "id": "paketo-buildpacks/liberty",
@@ -387,47 +393,47 @@
             {
               "id": "paketo-buildpacks/dist-zip",
               "optional": true,
-              "version": "5.6.2"
+              "version": "5.6.3"
             },
             {
               "id": "paketo-buildpacks/spring-boot",
               "optional": true,
-              "version": "5.25.1"
+              "version": "5.25.2"
             },
             {
               "id": "paketo-buildpacks/procfile",
               "optional": true,
-              "version": "5.6.2"
+              "version": "5.6.3"
             },
             {
               "id": "paketo-buildpacks/jattach",
               "optional": true,
-              "version": "1.4.2"
+              "version": "1.4.3"
             },
             {
               "id": "paketo-buildpacks/azure-application-insights",
               "optional": true,
-              "version": "5.14.2"
+              "version": "5.15.0"
             },
             {
               "id": "paketo-buildpacks/google-stackdriver",
               "optional": true,
-              "version": "7.5.3"
+              "version": "7.6.0"
             },
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.11.1"
+              "version": "3.12.0"
             },
             {
               "id": "paketo-buildpacks/java-memory-assistant",
               "optional": true,
-              "version": "1.4.2"
+              "version": "1.4.3"
             },
             {
               "id": "paketo-buildpacks/encrypt-at-rest",
               "optional": true,
-              "version": "4.5.1"
+              "version": "4.5.2"
             },
             {
               "id": "paketo-buildpacks/environment-variables",
@@ -437,11 +443,11 @@
             {
               "id": "paketo-buildpacks/image-labels",
               "optional": true,
-              "version": "4.5.0"
+              "version": "4.5.1"
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.9.0"
+          "version": "9.10.0"
         }
       ]
     },
