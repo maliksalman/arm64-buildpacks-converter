@@ -52,7 +52,7 @@
       "homepage": "https://github.com/paketo-buildpacks/encrypt-at-rest",
       "id": "paketo-buildpacks/encrypt-at-rest",
       "name": "Paketo Buildpack for Encrypt-at-Rest",
-      "version": "4.5.2"
+      "version": "4.5.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/environment-variables",
@@ -124,7 +124,7 @@
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.10.0"
+      "version": "9.11.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
@@ -136,7 +136,7 @@
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.8.0"
+      "version": "8.9.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
@@ -160,13 +160,13 @@
       "homepage": "https://github.com/paketo-buildpacks/native-image",
       "id": "paketo-buildpacks/native-image",
       "name": "Paketo Buildpack for Native Image",
-      "version": "5.11.1"
+      "version": "5.12.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/node-engine",
       "id": "paketo-buildpacks/node-engine",
       "name": "Paketo Buildpack for Node Engine",
-      "version": "1.5.2"
+      "version": "1.5.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/procfile",
@@ -184,7 +184,7 @@
       "homepage": "https://github.com/paketo-buildpacks/spring-boot",
       "id": "paketo-buildpacks/spring-boot",
       "name": "Paketo Buildpack for Spring Boot",
-      "version": "5.25.2"
+      "version": "5.26.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/syft",
@@ -208,7 +208,7 @@
       "homepage": "https://github.com/paketo-buildpacks/yarn",
       "id": "paketo-buildpacks/yarn",
       "name": "Paketo Buildpack for Yarn",
-      "version": "1.1.8"
+      "version": "1.1.9"
     }
   ],
   "created_by": {
@@ -268,7 +268,7 @@
             {
               "id": "paketo-buildpacks/spring-boot",
               "optional": true,
-              "version": "5.25.2"
+              "version": "5.26.0"
             },
             {
               "id": "paketo-buildpacks/datadog",
@@ -277,7 +277,7 @@
             },
             {
               "id": "paketo-buildpacks/native-image",
-              "version": "5.11.1"
+              "version": "5.12.0"
             },
             {
               "id": "paketo-buildpacks/procfile",
@@ -296,7 +296,7 @@
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.8.0"
+          "version": "8.9.0"
         }
       ]
     },
@@ -316,12 +316,12 @@
             {
               "id": "paketo-buildpacks/yarn",
               "optional": true,
-              "version": "1.1.8"
+              "version": "1.1.9"
             },
             {
               "id": "paketo-buildpacks/node-engine",
               "optional": true,
-              "version": "1.5.2"
+              "version": "1.5.3"
             },
             {
               "id": "paketo-buildpacks/syft",
@@ -386,7 +386,7 @@
             {
               "id": "paketo-buildpacks/spring-boot",
               "optional": true,
-              "version": "5.25.2"
+              "version": "5.26.0"
             },
             {
               "id": "paketo-buildpacks/procfile",
@@ -421,7 +421,7 @@
             {
               "id": "paketo-buildpacks/encrypt-at-rest",
               "optional": true,
-              "version": "4.5.2"
+              "version": "4.5.3"
             },
             {
               "id": "paketo-buildpacks/environment-variables",
@@ -435,7 +435,7 @@
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.10.0"
+          "version": "9.11.0"
         }
       ]
     },
