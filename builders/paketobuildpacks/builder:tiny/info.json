@@ -40,7 +40,7 @@
       "homepage": "https://github.com/paketo-buildpacks/datadog",
       "id": "paketo-buildpacks/datadog",
       "name": "Paketo Buildpack for Datadog",
-      "version": "3.12.0"
+      "version": "3.13.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/dist-zip",
@@ -124,7 +124,7 @@
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.11.0"
+      "version": "9.12.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
@@ -136,7 +136,7 @@
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.9.0"
+      "version": "8.10.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
@@ -190,7 +190,7 @@
       "homepage": "https://github.com/paketo-buildpacks/syft",
       "id": "paketo-buildpacks/syft",
       "name": "Paketo Buildpack for Syft",
-      "version": "1.31.0"
+      "version": "1.32.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/upx",
@@ -238,7 +238,7 @@
             {
               "id": "paketo-buildpacks/syft",
               "optional": true,
-              "version": "1.31.0"
+              "version": "1.32.0"
             },
             {
               "id": "paketo-buildpacks/leiningen",
@@ -273,7 +273,7 @@
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.12.0"
+              "version": "3.13.0"
             },
             {
               "id": "paketo-buildpacks/native-image",
@@ -296,7 +296,7 @@
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.9.0"
+          "version": "8.10.0"
         }
       ]
     },
@@ -326,7 +326,7 @@
             {
               "id": "paketo-buildpacks/syft",
               "optional": true,
-              "version": "1.31.0"
+              "version": "1.32.0"
             },
             {
               "id": "paketo-buildpacks/leiningen",
@@ -411,7 +411,7 @@
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.12.0"
+              "version": "3.13.0"
             },
             {
               "id": "paketo-buildpacks/java-memory-assistant",
@@ -435,7 +435,7 @@
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.11.0"
+          "version": "9.12.0"
         }
       ]
     },
