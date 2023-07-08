@@ -22,7 +22,7 @@
       "homepage": "https://github.com/paketo-buildpacks/bellsoft-liberica",
       "id": "paketo-buildpacks/bellsoft-liberica",
       "name": "Paketo Buildpack for BellSoft Liberica",
-      "version": "10.2.5"
+      "version": "10.2.6"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/ca-certificates",
@@ -58,7 +58,7 @@
       "homepage": "https://github.com/paketo-buildpacks/encrypt-at-rest",
       "id": "paketo-buildpacks/encrypt-at-rest",
       "name": "Paketo Buildpack for Encrypt-at-Rest",
-      "version": "4.5.4"
+      "version": "4.5.5"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/environment-variables",
@@ -142,7 +142,7 @@
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.13.0"
+      "version": "9.13.1"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
@@ -154,7 +154,7 @@
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.11.0"
+      "version": "8.11.1"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
@@ -263,7 +263,7 @@
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.2.5"
+              "version": "10.2.6"
             },
             {
               "id": "paketo-buildpacks/syft",
@@ -326,7 +326,7 @@
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.11.0"
+          "version": "8.11.1"
         }
       ]
     },
@@ -341,7 +341,7 @@
             },
             {
               "id": "paketo-buildpacks/bellsoft-liberica",
-              "version": "10.2.5"
+              "version": "10.2.6"
             },
             {
               "id": "paketo-buildpacks/yarn",
@@ -451,7 +451,7 @@
             {
               "id": "paketo-buildpacks/encrypt-at-rest",
               "optional": true,
-              "version": "4.5.4"
+              "version": "4.5.5"
             },
             {
               "id": "paketo-buildpacks/environment-variables",
@@ -465,7 +465,7 @@
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.13.0"
+          "version": "9.13.1"
         }
       ]
     },
