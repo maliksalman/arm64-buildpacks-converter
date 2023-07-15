@@ -4,7 +4,7 @@
       "homepage": "https://github.com/paketo-buildpacks/apache-tomcat",
       "id": "paketo-buildpacks/apache-tomcat",
       "name": "Paketo Buildpack for Apache Tomcat",
-      "version": "7.13.6"
+      "version": "7.13.7"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/apache-tomee",
@@ -40,7 +40,7 @@
       "homepage": "https://github.com/paketo-buildpacks/datadog",
       "id": "paketo-buildpacks/datadog",
       "name": "Paketo Buildpack for Datadog",
-      "version": "3.14.0"
+      "version": "3.15.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/dist-zip",
@@ -106,7 +106,7 @@
       "homepage": "https://github.com/paketo-buildpacks/gradle",
       "id": "paketo-buildpacks/gradle",
       "name": "Paketo Buildpack for Gradle",
-      "version": "7.2.4"
+      "version": "7.3.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/image-labels",
@@ -124,7 +124,7 @@
       "homepage": "https://paketo.io/docs/howto/java",
       "id": "paketo-buildpacks/java",
       "name": "Paketo Buildpack for Java",
-      "version": "9.13.1"
+      "version": "9.14.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/java-memory-assistant",
@@ -136,7 +136,7 @@
       "homepage": "https://paketo.io/docs/howto/java/#build-an-app-as-a-graalvm-native-image-application",
       "id": "paketo-buildpacks/java-native-image",
       "name": "Paketo Buildpack for Java Native Image",
-      "version": "8.11.1"
+      "version": "8.12.0"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/leiningen",
@@ -248,7 +248,7 @@
             {
               "id": "paketo-buildpacks/gradle",
               "optional": true,
-              "version": "7.2.4"
+              "version": "7.3.0"
             },
             {
               "id": "paketo-buildpacks/maven",
@@ -273,7 +273,7 @@
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.14.0"
+              "version": "3.15.0"
             },
             {
               "id": "paketo-buildpacks/native-image",
@@ -296,7 +296,7 @@
             }
           ],
           "id": "paketo-buildpacks/java-native-image",
-          "version": "8.11.1"
+          "version": "8.12.0"
         }
       ]
     },
@@ -341,7 +341,7 @@
             {
               "id": "paketo-buildpacks/gradle",
               "optional": true,
-              "version": "7.2.4"
+              "version": "7.3.0"
             },
             {
               "id": "paketo-buildpacks/maven",
@@ -366,7 +366,7 @@
             {
               "id": "paketo-buildpacks/apache-tomcat",
               "optional": true,
-              "version": "7.13.6"
+              "version": "7.13.7"
             },
             {
               "id": "paketo-buildpacks/apache-tomee",
@@ -411,7 +411,7 @@
             {
               "id": "paketo-buildpacks/datadog",
               "optional": true,
-              "version": "3.14.0"
+              "version": "3.15.0"
             },
             {
               "id": "paketo-buildpacks/java-memory-assistant",
@@ -435,7 +435,7 @@
             }
           ],
           "id": "paketo-buildpacks/java",
-          "version": "9.13.1"
+          "version": "9.14.0"
         }
       ]
     },
@@ -583,7 +583,7 @@
         "0.11"
       ]
     },
-    "version": "0.16.4"
+    "version": "0.16.5"
   },
   "run_images": [
     {
