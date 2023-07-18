@@ -76,7 +76,7 @@
       "homepage": "https://github.com/paketo-buildpacks/go",
       "id": "paketo-buildpacks/go",
       "name": "Paketo Buildpack for Go",
-      "version": "4.4.2"
+      "version": "4.4.3"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-build",
@@ -88,7 +88,7 @@
       "homepage": "https://github.com/paketo-buildpacks/go-dist",
       "id": "paketo-buildpacks/go-dist",
       "name": "Paketo Buildpack for Go Distribution",
-      "version": "2.3.9"
+      "version": "2.3.10"
     },
     {
       "homepage": "https://github.com/paketo-buildpacks/go-mod-vendor",
@@ -455,7 +455,7 @@
             },
             {
               "id": "paketo-buildpacks/go-dist",
-              "version": "2.3.9"
+              "version": "2.3.10"
             },
             {
               "id": "paketo-buildpacks/git",
@@ -487,7 +487,7 @@
             }
           ],
           "id": "paketo-buildpacks/go",
-          "version": "4.4.2"
+          "version": "4.4.3"
         },
         {
           "buildpacks": [
@@ -503,7 +503,7 @@
             },
             {
               "id": "paketo-buildpacks/go-dist",
-              "version": "2.3.9"
+              "version": "2.3.10"
             },
             {
               "id": "paketo-buildpacks/git",
@@ -531,7 +531,7 @@
             }
           ],
           "id": "paketo-buildpacks/go",
-          "version": "4.4.2"
+          "version": "4.4.3"
         }
       ]
     },
